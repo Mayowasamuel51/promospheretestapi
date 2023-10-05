@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Payment;
 
 class User extends Authenticatable
 {
@@ -19,8 +20,25 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'location',
+        'gender',
+        'phone',
+        'nin',
+        'BirthDate',
+        'passport',
+        'Language',
+        'google', // Added
+        'avatar', // Added
         'email',
         'password',
+        'countrys',
+        'price',
+        'profileImage',
+        'messageCompany',
+        'aboutMe',
+        'location',
+        'brandName',
+        'websiteName'
     ];
 
     /**
@@ -40,5 +58,10 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
+
+    public function paymentsystem(){
+        return $this->hasMany(Payment::class);
+    }
 }
