@@ -31,7 +31,7 @@ Route::get('/users/{id}', [UserController::class, 'showing']);
 Route::post('/uploadpic/{id}', [UserController::class, 'uploadpic']);
 Route::middleware('auth:sanctum')->group(function () {
     // update and new  user profile pics 
-   
+
     Route::delete('/deletepic/{id}', [UserController::class, 'deletepic']);
 
     // update user infomation

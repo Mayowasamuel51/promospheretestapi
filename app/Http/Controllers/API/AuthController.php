@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Socialite\Facades\Socialite;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
 
 class AuthController extends Controller{
@@ -75,7 +76,7 @@ class AuthController extends Controller{
             'email' => $request->email,
             "profileImage"=>$file,
             'price'=>$request->price,
-            'password' => bcrypt($request->password)
+            'password' => Hash::make($request->password)
         ]);
         $token = $user->createToken("API TOKEN".$user->name)->plainTextToken;
         return response()->json([
