@@ -31,12 +31,9 @@ Route::get('/users/{id}', [UserController::class, 'showing']);
 Route::post('/uploadpic/{id}', [UserController::class, 'uploadpic']);
 Route::middleware('auth:sanctum')->group(function () {
     // update and new  user profile pics 
-
     Route::delete('/deletepic/{id}', [UserController::class, 'deletepic']);
-
     // update user infomation
     Route::put('/updateusersinfo/{id}', [UserController::class, 'updatedata']);
-
     // Route::post('/payment',[UserController::class, 'payment']);
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -47,9 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
             "hello" => ["mani", 'thid']
         ]);
     });
-
     Route::apiResource('/posts', UserController::class);
-
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
