@@ -56,13 +56,10 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    // protected $casts = [
-    //     'email_verified_at' => 'datetime',
-    //     'password' => 'hashed',
-    // ];
     protected $casts = [
-        'password' => 'hashed',
+        'email_verified_at' => 'datetime',
     ];
+   
 
     public function paymentsystem(){
         return $this->hasMany(Payment::class);
