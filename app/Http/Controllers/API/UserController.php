@@ -11,13 +11,126 @@ use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\postvideo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Google\Cloud\Storage\StorageClient;
+use Firebase\Storage\FirebaseStorage;
 
 
 class UserController extends Controller
 {
+
+    public function getoneimage($user_id)
+    {
+        if (auth('sanctum')->check()) {
+            $post = Post::where('id', $user_id)->get();
+            return response()->json([
+                'status' => 200,
+                'message' => 'messages',
+                'data' => $post
+            ]);
+        } else {
+            return response()->json([
+                'status' => 500,
+                'error' => 'something went worng'
+            ]);
+        }
+    }
+    public function getmore($postid)
+    {
+        $images = Images::where('user_id', $postid)->get();
+        return response()->json([
+            'status' => 200,
+            // 'updated' => $post,
+            'images' => $images
+        ]);
+    }
+    public function getinfopost(){
+        //   get the post and the images all togther related to the users id with the following categories;
+        ///  post or showing off  images and videos  this is only for paid users 
+        //   house apartment , cars , makeup , tallor , engines , moto 
+
+        $user = Post::find(91);
+        $user->images()->get();
+        // $images = $user->images;
+        return response()->json([
+            'status' => 200,
+            'category' => $user
+        ]);
+        // $post = Post::where('user_id', $user_id,)->get();
+        // $images = Images::where('user_id', $user_id,)->get();
+        // $post = Post::find($user_id)->images;
+    }
+
+    public function uploadedmutipleimages(Request $request, $user_id)
+    {
+        if (auth('sanctum')->check()) {
+            $user_infomation = User::findorFail($user_id);
+            if ($user_infomation) {
+                $post =  Post::find($user_id);
+                $muitpleimagesUrl = new Images;
+                // $muitpleimagesUrl->username = $request->username;
+                $muitpleimagesUrl->user_id = $user_id;
+                $muitpleimagesUrl->muitpleimages = $request->muitpleimages;
+
+                $post->images()->save($muitpleimagesUrl);
+
+                return response()->json([
+                    'status' => 200,
+                    'updated' => $post
+                ]);
+            }
+        }
+    }
+
+    public function videos(Request $request, $user_id)
+    {
+        if (auth('sanctum')->check()) {
+            $user_infomation = User::findorFail($user_id);
+            if ($user_infomation) {
+                $post =  Post::find($user_id);
+                $muitpleimagesUrl = new postvideo;
+                // $muitpleimagesUrl->username = $request->username;
+                $muitpleimagesUrl->user_id = $user_id;
+                $muitpleimagesUrl->videos = $request->videos;
+
+                $post->mainvideos()->save($muitpleimagesUrl);
+
+                return response()->json([
+                    'status' => 200,
+                    'updated' => $post
+                ]);
+            }
+        }
+    }
+
+
+    public function uploadedpost(Request $request, $user_id)
+    {
+        if (auth('sanctum')->check()) {
+            $user_infomation = User::findorFail($user_id);
+            $post = new Post;
+            if ($user_infomation) {
+                $post->user_id = Auth::user()->id;
+                $post->price = $request->price;
+                $post->productName = $request->productName;
+                $post->categories = $request->categories;
+                $post->save();
+                return response()->json([
+                    'status' => 200,
+                    'updated' => $post
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 500,
+                    'error' => 'not allowed!!!'
+                ]);
+            }
+        }
+    }
+
     public function initializeTransaction(Request $request)
     {
         // API endpoint URL

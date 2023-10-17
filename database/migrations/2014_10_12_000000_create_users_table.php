@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('google')->nullable();
-            $table->string('avatar');
+            $table->string('avatar')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-
+            $table->string('password')->nullable();
+            $table->integer('is_paid')->nullable();
             /// other 
             $table->integer('price')->nullable();
             $table->string('countrys')->nullable();

@@ -1,14 +1,26 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
+
+// Recommendation API .........................
+Route::get('/homerecommendation',[HomeController::class,'recommend_top_5000']);
+
+
+
 // categories starts
 Route::get('/categories', [UserController::class, 'lastestPost']);
 // search for categories .....................
-Route::get('/categories/{categories}', [UserController::class, 'searchbycategories']);
+Route::get('/categories/{categories}/{postid}', [UserController::class, 'searchbycategories']);
+
+Route::get('/categories/{categories}/{user_id}', [UserController::class, 'getinfopost']);
+
+
 // categories ends
 
 
@@ -29,11 +41,22 @@ Route::get('/initialize-transaction', [UserController::class, 'initializeTransac
 
 Route::get('/users/{id}', [UserController::class, 'showing']);
 Route::post('/uploadpic/{id}', [UserController::class, 'uploadpic']);
+
+Route::get('/getmore/{postid}',[UserController::class,'getmore']);  
+Route::get('/getimage', [UserController::class, 'getinfopost']);
+
+
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/videos/{user_id}', [UserController::class, 'videos']);
+    Route::post('/images/{user_id}', [UserController::class, 'uploadedpost']);
+    Route::post('/mutipleimages/{user_id}', [UserController::class, 'uploadedmutipleimages']);
+
     // update and new  user profile pics 
     Route::delete('/deletepic/{id}', [UserController::class, 'deletepic']);
+
     // update user infomation
     Route::put('/updateusersinfo/{id}', [UserController::class, 'updatedata']);
+
     // Route::post('/payment',[UserController::class, 'payment']);
     Route::get('/user', function (Request $request) {
         return $request->user();

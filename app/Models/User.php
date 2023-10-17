@@ -64,4 +64,14 @@ class User extends Authenticatable
     public function paymentsystem(){
         return $this->hasMany(Payment::class);
     }
+
+    public function posts(){
+        return $this->hasMany(Post::class, 'user_id');
+    }
+
+    public function postimages(){
+        return $this->hasMany(Images::class, 'user_id');
+    }
+
+
 }

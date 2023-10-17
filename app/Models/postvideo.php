@@ -4,16 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Post;
-class Images extends Model
+
+class postvideo extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id';
-    protected $table = 'images';
+    protected $table = 'postvideos';
     protected $guarded = [];
 
 
-    public function postItem(){
+
+    public function postuservidoes(){
         return $this->belongsTo(Post::class, 'user_id');
     }
 }

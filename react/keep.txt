@@ -1,0 +1,106 @@
+import axios from "axios";
+import { useStateContext } from "../contexts/ContextProvider";
+import { useEffect, useState } from "react";
+import { PaystackButton } from 'react-paystack'
+
+// const publicKey = "pk_test_7ce5ec2ad909fa7b6203f6e43667889d0c2555db"
+let mykey;
+function User() {
+
+    const [publicKey, setPublicKey] = useState([]);
+    const getkey = async () => {
+        const response = await fetch('http://localhost:8000/api/publickey');
+        const data = await response.json()
+        setPublicKey(data)
+        console.log(data)
+        return data
+    }
+
+    // publicKey.map((item) => {
+    //     mykey = item.publickey
+    // })
+    const { user } = useStateContext();
+    const [input, setInput] = useState({
+        name: '',
+        email: user.email,
+        lastname: user.name
+    })
+    const handlInput = (e) => {
+        setInput({ ...input, [e.target.value]: e.target.name })
+    }
+
+
+    const handLeSubmit = async (e, paymentmode) => {
+        e.preventDefault();
+        const data = {
+            name: input.name,
+            email: input.email,
+            lastname: input.lastname,
+            paymentmode: paymentmode
+        }
+        switch (paymentmode) {
+            case 'paystack':
+                axios.post('http://localhost:8000/api/payment', data).then((res) => {
+                    if (res.data.status === 200) {
+                        // res.headers.a
+
+                        // const paymentForm = document.getElementById('paymentForm');
+                        // paymentForm.addEventListener("submit", payWithPaystack, false);
+                        let handler = PaystackPop.setup({
+                            key: res.data.headers,
+                            // 'pk_test_7ce5ec2ad909fa7b6203f6e43667889d0c2555db', // Replace with your public key
+                            email: input.email,
+                            amount: res.data.amount,
+                            plan: 'PLN_kcp1464jaxs7o74',
+                            plan_code: 100,
+                            ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                            // label: "Optional string that replaces customer email"
+                            onClose: function () {
+                                alert('Window closed.');
+                            },
+                            callback: function (response) {
+                                let message = 'Payment complete! Reference: ' + response.reference;
+                                alert(message);
+                            }
+                        });
+                        handler.openIframe();
+                    }
+                }).catch((err) => alert(err))
+                break
+
+        }
+        // const response = await fetch('http://localhost:8000/api/payment', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        // })
+
+        // const checkdata = await response.json();;
+        // console.log(checkdata.worked)
+
+    }
+    useEffect(() => {
+        getkey()
+    }, [])
+    return (
+        <>
+            <h1>User</h1>
+            <h2>payment monlthly</h2>
+
+            {user.name}
+            <form onSubmit={handLeSubmit} id="paymentForm">
+                <input type="text" name="name" value={input.name} onChange={handlInput} />
+                <input type="email" name="email" value={input.email} onChange={handlInput} />
+                <input type="text" name="lastname" value={input.lastname} onChange={handlInput} />
+
+                <button type="submit" onClick={(e) => handLeSubmit(e, 'paystack')}>pay</button>
+
+            </form>
+
+        </>
+    )
+}
+
+export default User;
