@@ -3,13 +3,15 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
 
 // Recommendation API .........................
-Route::get('/homerecommendation',[HomeController::class,'recommend_top_5000']);
+Route::get('/recommendationtop',[HomeController::class,'recommend_top_5000']);
+Route::get('/recommendationtopvideoid/{video_id}',[HomeController::class, 'recommendationtopinfo']);
 
 
 
@@ -22,7 +24,6 @@ Route::get('/categories/{categories}/{user_id}', [UserController::class, 'getinf
 
 
 // categories ends
-
 
 /// oauth done with google
 Route::get('auth', [AuthController::class, 'redirectToAuth']);
@@ -45,8 +46,10 @@ Route::post('/uploadpic/{id}', [UserController::class, 'uploadpic']);
 Route::get('/getmore/{postid}',[UserController::class,'getmore']);  
 Route::get('/getimage', [UserController::class, 'getinfopost']);
 
-
+Route::get('/profile/{sellername}', [ProfileController::class,'profile']);
 Route::middleware('auth:sanctum')->group(function () {
+    // Route::get('/profile/sellername', [ProfileController::class,'profile']);
+
     Route::post('/videos/{user_id}', [UserController::class, 'videos']);
     Route::post('/images/{user_id}', [UserController::class, 'uploadedpost']);
     Route::post('/mutipleimages/{user_id}', [UserController::class, 'uploadedmutipleimages']);

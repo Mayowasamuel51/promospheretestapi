@@ -47,7 +47,8 @@ class UserController extends Controller
             'images' => $images
         ]);
     }
-    public function getinfopost(){
+    public function getinfopost()
+    {
         //   get the post and the images all togther related to the users id with the following categories;
         ///  post or showing off  images and videos  this is only for paid users 
         //   house apartment , cars , makeup , tallor , engines , moto 
@@ -67,20 +68,30 @@ class UserController extends Controller
     public function uploadedmutipleimages(Request $request, $user_id)
     {
         if (auth('sanctum')->check()) {
-            $user_infomation = User::findorFail($user_id);
-            if ($user_infomation) {
-                $post =  Post::find($user_id);
-                $muitpleimagesUrl = new Images;
-                // $muitpleimagesUrl->username = $request->username;
-                $muitpleimagesUrl->user_id = $user_id;
-                $muitpleimagesUrl->muitpleimages = $request->muitpleimages;
-
-                $post->images()->save($muitpleimagesUrl);
-
+            $validator = Validator::make($request->all(), [
+                'muitpleimages' => 'required',
+            ]);
+            if ($validator->fails()) {
                 return response()->json([
-                    'status' => 200,
-                    'updated' => $post
+                    'status' => 422,
+                    'errors' => $validator->messages(),
                 ]);
+            } else {
+                $user_infomation = User::findorFail($user_id);
+                if ($user_infomation) {
+                    $post =  Post::find($user_id);
+                    $muitpleimagesUrl = new Images;
+                    // $muitpleimagesUrl->username = $request->username;
+                    $muitpleimagesUrl->user_id = $user_id;
+                    $muitpleimagesUrl->muitpleimages = $request->muitpleimages;
+
+                    $post->images()->save($muitpleimagesUrl);
+
+                    return response()->json([
+                        'status' => 200,
+                        'updated' => $post
+                    ]);
+                }
             }
         }
     }
@@ -109,24 +120,39 @@ class UserController extends Controller
 
     public function uploadedpost(Request $request, $user_id)
     {
-        if (auth('sanctum')->check()) {
-            $user_infomation = User::findorFail($user_id);
-            $post = new Post;
-            if ($user_infomation) {
-                $post->user_id = Auth::user()->id;
-                $post->price = $request->price;
-                $post->productName = $request->productName;
-                $post->categories = $request->categories;
-                $post->save();
-                return response()->json([
-                    'status' => 200,
-                    'updated' => $post
-                ]);
-            } else {
-                return response()->json([
-                    'status' => 500,
-                    'error' => 'not allowed!!!'
-                ]);
+
+
+        $validator = Validator::make($request->all(), [
+            'price' => 'required',
+            'productName' => 'required',
+            'categories' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 422,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+            if (auth('sanctum')->check()) {
+                $user_infomation = User::findorFail($user_id);
+                $post = new Post;
+                if ($user_infomation) {
+                    $post->user_id = Auth::user()->id;
+                    $post->price = $request->price;
+                    $post->productName = $request->productName;
+                    $post->categories = $request->categories;
+                    $post->save();
+                    return response()->json([
+                        'status' => 200,
+                        'updated' => $post
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => 500,
+                        'error' => 'not allowed!!!'
+                    ]);
+                }
             }
         }
     }
