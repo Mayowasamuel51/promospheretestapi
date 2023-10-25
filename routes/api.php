@@ -1,17 +1,38 @@
 <?php
 
+use Illuminate\Http\Request;
+use App\Http\Resources\Trending;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\HomeController;
+use App\Http\Controllers\API\MobilesController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ProfileController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\RecommendController;
+
+// Recommendation API  FOR VIDEOS SOLVED  WEB  .........................
+Route::get('/recommendationtop',[RecommendController::class,'recommend_top_5000']);
+Route::get('/recommendationtopvideoid/{video_id}',[RecommendController::class, 'recommendationtopinfo']);
+
+//Recommendation API FOR VIDEOS AND IMAGES FOR MOBILE .....................
+Route::get('/recommendation',[MobilesController::class,'mobile_top_recommend']);
+Route::get('/recommendationimages',[MobilesController::class,'mobile_top_recommend_images']);
+
+// IMAGES API , GLOBAL IMAGES AND USER IMAGES 
 
 
 
-// Recommendation API .........................
-Route::get('/recommendationtop',[HomeController::class,'recommend_top_5000']);
-Route::get('/recommendationtopvideoid/{video_id}',[HomeController::class, 'recommendationtopinfo']);
+/// Trending Services   VIDEOS SOLVED  WEB and MOBILE
+Route::get('/trendingservices', [HomeController::class, 'trendingservice']);
+Route::get('/trending/{categories}', [HomeController::class, 'trendingprofile']);
+
+
+
+///   TOP SERVICES PROVIDER FOR THE WEEK  API WEB and MOBILE
+
+
+///   TOP MOVING SERVICES FOR THE WEEK  API   WEB and MOBILE
+
 
 
 
@@ -79,3 +100,8 @@ Route::middleware('auth:sanctum')->group(function () {
 //     Route::resource("/tasks", TaskContorller::class);
 //     Route::post("/logout", [SantumController::class, 'logout']);
 // });
+
+
+
+
+//// API ---- ADMIN S 

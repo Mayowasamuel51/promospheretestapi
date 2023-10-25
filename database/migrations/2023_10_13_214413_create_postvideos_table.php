@@ -16,6 +16,7 @@ class CreatePostvideosTable extends Migration
         Schema::create('postvideos', function (Blueprint $table) {
             $table->id();
             $table->string("videos")->nullable();
+            $table->string("postnumber")->nullable();
             $table->unsignedBigInteger("user_id");
             $table->foreign("user_id")->references('id')->on("posts")->onDelete("cascade");
             $table->timestamps();

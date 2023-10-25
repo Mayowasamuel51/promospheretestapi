@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Images;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class HomeResource extends JsonResource
+class MobilesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,18 +17,21 @@ class HomeResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'id'=>(string)$this->id, 
-            'attributes'=>[
-                // 'name'=>$this->name,
-                'categories'=>$this->categories,
-                'videos'=>$this->videos,
-                'created_at'=>$this->created_at,
+            'id' => (string) $this->id,
+            'attributes' => [
+                'user_id' => $this->user_id,
+                'name' => $this->name,
+                'muitpleimages'=>$this->muitpleimages,
+                'postnumber' => $this->postnumber,
+                'videos' => $this->videos,
+                // 'created_ats' => $this->created_at/,
                 // 'muitpleimages'=>$this->muitpleimages
             ],
-            // 'relationships'=>[
-            //     // 'id'=>(string)$this->user->id, 
-            //     // 'user name'=>$this->users->name, 
-            // ]
         ];
+
+    }
+
+    public function testing(){
+
     }
 }

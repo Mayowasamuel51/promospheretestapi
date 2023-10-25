@@ -81,6 +81,7 @@ class UserController extends Controller
                 if ($user_infomation) {
                     $post =  Post::find($user_id);
                     $muitpleimagesUrl = new Images;
+                    $muitpleimagesUrl->postnumber = $request->postnumber;
                     // $muitpleimagesUrl->username = $request->username;
                     $muitpleimagesUrl->user_id = $user_id;
                     $muitpleimagesUrl->muitpleimages = $request->muitpleimages;
@@ -102,12 +103,13 @@ class UserController extends Controller
             $user_infomation = User::findorFail($user_id);
             if ($user_infomation) {
                 $post =  Post::find($user_id);
-                $muitpleimagesUrl = new postvideo;
-                // $muitpleimagesUrl->username = $request->username;
-                $muitpleimagesUrl->user_id = $user_id;
-                $muitpleimagesUrl->videos = $request->videos;
+                $mutiplevideos = new postvideo;
+                // $mutiplevideos->username = $request->username;
+                $mutiplevideos->user_id = $user_id;
+                $mutiplevideos->postnumber = $request->postnumber;
+                $mutiplevideos->videos = $request->videos;
 
-                $post->mainvideos()->save($muitpleimagesUrl);
+                $post->mainvideos()->save($mutiplevideos);
 
                 return response()->json([
                     'status' => 200,
@@ -140,6 +142,7 @@ class UserController extends Controller
                 if ($user_infomation) {
                     $post->user_id = Auth::user()->id;
                     $post->price = $request->price;
+                    $post->postnumber = $request->postnumber;
                     $post->productName = $request->productName;
                     $post->categories = $request->categories;
                     $post->save();

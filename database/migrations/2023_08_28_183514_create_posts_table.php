@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void  {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->string("postnumber")->nullable();
             $table->unsignedBigInteger("user_id");
           
             $table->string("titleImage")->nullable();

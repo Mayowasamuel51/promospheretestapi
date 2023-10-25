@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class HomeResource extends JsonResource
+class RecommendResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +18,13 @@ class HomeResource extends JsonResource
         return [
             'id'=>(string)$this->id, 
             'attributes'=>[
-                // 'name'=>$this->name,
+                'user_id'=>$this->user_id,
+                'name'=>$this->name,
                 'categories'=>$this->categories,
+                'postnumber'=>$this->postnumber,
                 'videos'=>$this->videos,
+                'productName'=>$this->productName,
+                'description'=>$this->description,
                 'created_at'=>$this->created_at,
                 // 'muitpleimages'=>$this->muitpleimages
             ],

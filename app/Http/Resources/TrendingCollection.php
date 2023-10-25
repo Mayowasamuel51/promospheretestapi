@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class HomeResource extends JsonResource
+class TrendingCollection extends ResourceCollection
 {
     /**
-     * Transform the resource into an array.
+     * Transform the resource collection into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
@@ -18,16 +18,13 @@ class HomeResource extends JsonResource
         return [
             'id'=>(string)$this->id, 
             'attributes'=>[
-                // 'name'=>$this->name,
-                'categories'=>$this->categories,
-                'videos'=>$this->videos,
+                'name'=>$this->name,
+                'productName'=>$this->productName,
+                // 'videos'=>$this->videos,
                 'created_at'=>$this->created_at,
                 // 'muitpleimages'=>$this->muitpleimages
             ],
-            // 'relationships'=>[
-            //     // 'id'=>(string)$this->user->id, 
-            //     // 'user name'=>$this->users->name, 
-            // ]
+           
         ];
     }
 }
