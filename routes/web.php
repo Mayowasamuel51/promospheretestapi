@@ -21,3 +21,10 @@ Route::get('/', function () {
 Route::get('/home',function(){
     return "working";
 });
+
+
+
+
+Route::get('/homework',function(){
+    return "working";
+});
