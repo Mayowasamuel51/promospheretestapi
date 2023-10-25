@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/home',function(){
+Route::get('/homes',function(){
     return "working";
 });
 
