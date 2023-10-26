@@ -28,3 +28,8 @@ Route::get('/homes',function(){
 Route::get('/homework',function(){
     return "working";
 });
+
+
+Route::get('/get',function(){
+    return "working";
+});
