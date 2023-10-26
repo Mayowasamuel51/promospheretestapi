@@ -20,11 +20,11 @@ class RecommendResource extends JsonResource
             'attributes'=>[
                 'user_id'=>$this->user_id,
                 'name'=>$this->name,
-                'categories'=>$this->categories,
+                // 'categories'=>$this->categories,
                 'postnumber'=>$this->postnumber,
                 'videos'=>$this->videos,
-                'productName'=>$this->productName,
-                'description'=>$this->description,
+                // 'productName'=>$this->productName,
+                // 'description'=>$this->description,
                 'created_at'=>$this->created_at,
                 // 'muitpleimages'=>$this->muitpleimages
             ],

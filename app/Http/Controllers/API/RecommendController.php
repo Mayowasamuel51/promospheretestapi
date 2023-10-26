@@ -37,7 +37,7 @@ class RecommendController extends Controller
                     // ->join('posts', 'users.id','posts.user_id') 
                     ->where('users.is_paid', '=', 5000)
                     ->inRandomOrder()
-                    ->latest()
+                    ->latest('postvideos.created_at')
                     ->take(23)
                     ->lazy()
                     // ->count()

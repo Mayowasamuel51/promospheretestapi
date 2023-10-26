@@ -10,6 +10,12 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\RecommendController;
 
+Route::get("/try", function () {
+    return response()->json([
+        "hello" => ["mani", 'thid']
+    ]);
+});
+
 // Recommendation API  FOR VIDEOS SOLVED  WEB  .........................
 Route::get('/recommendationtop',[RecommendController::class,'recommend_top_5000']);
 Route::get('/recommendationtopvideoid/{video_id}',[RecommendController::class, 'recommendationtopinfo']);
