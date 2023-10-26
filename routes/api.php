@@ -10,7 +10,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\RecommendController;
 
-Route::get("/try", function () {
+Route::get("/trys", function () {
     return response()->json([
         "hello" => ["mani", 'thid']
     ]);
