@@ -40,7 +40,7 @@ class MobilesController extends Controller
                     //  ->join('images', 'us    ers.created_at','images.created_at') 
                     ->where('users.is_paid', '=', 5000)
                     ->inRandomOrder()
-                    ->latest()
+                    ->latest('users.created_at')
                     ->take(30)
                     ->lazy()
                     // ->count()

@@ -16,13 +16,12 @@ use App\Http\Controllers\API\RecommendController;
 Route::get('/recommendationtop',[RecommendController::class,'recommend_top_5000']);
 Route::get('/recommendationtopvideoid/{video_id}',[RecommendController::class, 'recommendationtopinfo']);
 
+
 //Recommendation API FOR VIDEOS AND IMAGES FOR MOBILE .....................
 Route::get('/recommendation',[MobilesController::class,'mobile_top_recommend']);
 Route::get('/recommendationimages',[MobilesController::class,'mobile_top_recommend_images']);
 
 // IMAGES API , GLOBAL IMAGES AND USER IMAGES 
-
-
 
 /// Trending Services   VIDEOS SOLVED  WEB and MOBILE
 Route::get('/trendingservices', [HomeController::class, 'trendingservice']);

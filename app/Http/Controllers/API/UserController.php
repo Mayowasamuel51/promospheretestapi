@@ -70,6 +70,7 @@ class UserController extends Controller
         if (auth('sanctum')->check()) {
             $validator = Validator::make($request->all(), [
                 'muitpleimages' => 'required',
+                'postnumber'=>'required',
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -82,10 +83,8 @@ class UserController extends Controller
                     $post =  Post::find($user_id);
                     $muitpleimagesUrl = new Images;
                     $muitpleimagesUrl->postnumber = $request->postnumber;
-                    // $muitpleimagesUrl->username = $request->username;
                     $muitpleimagesUrl->user_id = $user_id;
                     $muitpleimagesUrl->muitpleimages = $request->muitpleimages;
-
                     $post->images()->save($muitpleimagesUrl);
 
                     return response()->json([
@@ -97,8 +96,7 @@ class UserController extends Controller
         }
     }
 
-    public function videos(Request $request, $user_id)
-    {
+    public function videos(Request $request, $user_id)   {
         if (auth('sanctum')->check()) {
             $user_infomation = User::findorFail($user_id);
             if ($user_infomation) {
@@ -108,9 +106,7 @@ class UserController extends Controller
                 $mutiplevideos->user_id = $user_id;
                 $mutiplevideos->postnumber = $request->postnumber;
                 $mutiplevideos->videos = $request->videos;
-
                 $post->mainvideos()->save($mutiplevideos);
-
                 return response()->json([
                     'status' => 200,
                     'updated' => $post
@@ -120,14 +116,12 @@ class UserController extends Controller
     }
 
 
-    public function uploadedpost(Request $request, $user_id)
-    {
-
-
+    public function uploadedpost(Request $request, $user_id){
         $validator = Validator::make($request->all(), [
             'price' => 'required',
             'productName' => 'required',
-            'categories' => 'required'
+            'categories' => 'required',
+            'description'=>'required'
         ]);
 
         if ($validator->fails()) {
@@ -141,10 +135,14 @@ class UserController extends Controller
                 $post = new Post;
                 if ($user_infomation) {
                     $post->user_id = Auth::user()->id;
+                    $post->website = $request->website;
+                    $post->usedOrnew = $request->usedOrnew;
                     $post->price = $request->price;
                     $post->postnumber = $request->postnumber;
                     $post->productName = $request->productName;
+                    $post->description = $request->description;
                     $post->categories = $request->categories;
+                    $post->negotiation = $request->negotiation;
                     $post->save();
                     return response()->json([
                         'status' => 200,

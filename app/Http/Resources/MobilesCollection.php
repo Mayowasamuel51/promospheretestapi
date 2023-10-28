@@ -23,7 +23,7 @@ class MobilesCollection extends ResourceCollection
                 'user_id' => $this->user_id,
                 'name' => $this->name,
                 // 'categories'=>$this->categories,
-                'images'=>$this->muitpleimages,
+                // 'images'=>$this->muitpleimages,
                 'postnumber' => $this->postnumber,
                 'videos' => $this->videos,
                 // 'created_ats' => $this->created_at/,

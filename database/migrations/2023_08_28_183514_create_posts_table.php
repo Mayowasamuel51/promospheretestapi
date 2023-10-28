@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void  {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->string("is_paid")->nullable();
             $table->string("postnumber")->nullable();
             $table->unsignedBigInteger("user_id");
           
@@ -19,6 +20,7 @@ return new class extends Migration
             $table->integer("price")->nullable();
             $table->string("usedOrnew")->nullable();
             $table->string("productName")->nullable();
+            $table->string("website")->nullable();
             $table->string("categories")->nullable();
             $table->string("description")->nullable();
             $table->string("negotiation")->nullable();

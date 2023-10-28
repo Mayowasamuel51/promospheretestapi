@@ -21,7 +21,7 @@ class MobilesResource extends JsonResource
             'attributes' => [
                 'user_id' => $this->user_id,
                 'name' => $this->name,
-                'muitpleimages'=>$this->muitpleimages,
+                // 'muitpleimages'=>$this->muitpleimages,
                 'postnumber' => $this->postnumber,
                 'videos' => $this->videos,
                 // 'created_ats' => $this->created_at/,
