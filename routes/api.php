@@ -16,18 +16,16 @@ use App\Http\Controllers\API\RecommendController;
 Route::get('/recommendationtop',[RecommendController::class,'recommend_top_5000']);
 Route::get('/recommendationtopvideoid/{video_id}',[RecommendController::class, 'recommendationtopinfo']);
 
-
 //Recommendation API FOR VIDEOS AND IMAGES FOR MOBILE .....................
-Route::get('/recommendation',[MobilesController::class,'mobile_top_recommend']);
+Route::get('/recommendation',[MobilesController::class,'mobile_top_recommend']); 
 Route::get('/recommendationimages',[MobilesController::class,'mobile_top_recommend_images']);
 
 // IMAGES API , GLOBAL IMAGES AND USER IMAGES 
 
+
 /// Trending Services   VIDEOS SOLVED  WEB and MOBILE
 Route::get('/trendingservices', [HomeController::class, 'trendingservice']);
 Route::get('/trending/{categories}', [HomeController::class, 'trendingprofile']);
-
-
 
 ///   TOP SERVICES PROVIDER FOR THE WEEK  API WEB and MOBILE
 
@@ -35,13 +33,18 @@ Route::get('/trending/{categories}', [HomeController::class, 'trendingprofile'])
 ///   TOP MOVING SERVICES FOR THE WEEK  API   WEB and MOBILE
 
 
+/// STORIES API FOR WEB AND MOBILE 
+
+
+
+//  SEARCH AlGORITHM   For finding , categories, Sellers 
+ 
 
 
 // categories starts
 Route::get('/categories', [UserController::class, 'lastestPost']);
 // search for categories .....................
 Route::get('/categories/{categories}/{postid}', [UserController::class, 'searchbycategories']);
-
 Route::get('/categories/{categories}/{user_id}', [UserController::class, 'getinfopost']);
 
 
@@ -106,3 +109,4 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 //// API ---- ADMIN S 
+// call allemnet in eveining expalin with vera approve   it 
